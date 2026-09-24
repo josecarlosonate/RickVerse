@@ -1,4 +1,4 @@
-import { useCharacter } from '../hooks/useCharacter'
+import { useCharacters } from '../hooks/useCharacters'
 import CharacterCards from '../components/CharacterCards'
 import CharacterSkeleton from '../components/CharacterSkeleton'
 import Filters from '../components/Filters'
@@ -6,7 +6,7 @@ import Alert from '../components/Alert'
 
 function Home() {
 
-    const { characters, isLoading, error, search, setSearch, status, setStatus, gender, setGender } = useCharacter()
+    const { characters, isLoading, error, search, setSearch, status, setStatus, gender, setGender } = useCharacters()
 
     return (
         <>

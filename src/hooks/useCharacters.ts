@@ -3,7 +3,7 @@ import type { character } from "../types/character";
 import { getCharacters } from "../api/rickAndMorty";
 
 
-export function useCharacter() {
+export function useCharacters() {
     const [characters, setCharacters] = useState<character[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
