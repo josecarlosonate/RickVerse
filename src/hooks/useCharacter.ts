@@ -5,18 +5,25 @@ import { getCharacters } from "../api/rickAndMorty";
 
 export function useCharacter() {
     const [characters, setCharacters] = useState<character[]>([])
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
 
         async function loadCharacter() {
-            const results = await getCharacters()
-            setCharacters(results)
+            try {
+                const results = await getCharacters()
+                setCharacters(results)
+                setIsLoading(false)
+            } catch (error) {
+                setIsLoading(false)
+            }
         }
 
         loadCharacter()
     }, [])
 
     return {
-        characters
+        characters,
+        isLoading
     }
 }

@@ -51,6 +51,11 @@
   }
 }
 
+html {
+  scrollbar-color: #3fb950 #0d1117; /* [Color del tirador] [Color del fondo] */
+  scrollbar-width: thin; /* Hace la barra más delgada y elegante */
+}
+
 #root {
   width: 1126px;
   max-width: 100%;

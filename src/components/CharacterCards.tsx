@@ -19,7 +19,7 @@ function CharacterCards(props: characterCardsProps) {
                         <div key={character.id} className="flex flex-col sm:flex-row sm:h-32 w-full max-w-sm overflow-hidden rounded-xl
                         border border-[#30363d] bg-[#161b22] transition duration-200 hover:ring-1 hover:-translate-y-1.5">
                             <div className="w-full h-48 sm:w-28 sm:h-full shrink-0 bg-[#21262d]">
-                                <img className="h-full w-full object-fit: cover" src={character.image} alt="imagen" />
+                                <img className="h-full w-full object-fit: cover" src={character.image} alt={character.name} />
                             </div>
                             <div className="flex flex-1 flex-col justify-between p-3 text-left">
                                 <div className="flex flex-col justify-center grow pb-2">
