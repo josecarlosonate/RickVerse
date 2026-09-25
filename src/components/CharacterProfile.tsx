@@ -48,10 +48,10 @@ function CharacterProfile(props: CharacterCardProps) {
                         <div className="flex flex-1 flex-col p-5 md:p-6 justify-between">
 
                             <div>
-                                <h1 className="text-2xl font-bold tracking-tight md:text-3xl pr-10 truncate block
-                                 text-[#f0f6fc]! leading-normal pb-1">
+                                <h2 className="text-2xl font-bold tracking-tight md:text-3xl pr-10 truncate block
+                                 text-[#f0f6fc]! line-clamp-1 leading-tight">
                                     {props.character.name}
-                                </h1>
+                                </h2>
                                 <div className="mt-1.5 flex items-center gap-2 text-xs font-medium text-[#8b949e]">
                                     <span
                                         className={`h-2.5 w-2.5 shrink-0 rounded-full shadow-[0_0_8px_currentcolor]
