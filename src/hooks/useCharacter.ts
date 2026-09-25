@@ -1,51 +1,39 @@
 import { useEffect, useState } from "react";
 import type { character } from "../types/character";
-import { getCharacters } from "../api/rickAndMorty";
-
+import { useParams } from "react-router-dom";
+import { getCharacter } from "../api/rickAndMorty";
 
 export function useCharacter() {
-    const [characters, setCharacters] = useState<character[]>([])
+    const [character, setCharacter] = useState<character | null>(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const [search, setSearch] = useState<string>('')
-    const [debouncedSearch, setDebouncedSearch] = useState('')
-    const [status, setStatus] = useState('all')
-    const [gender, setGender] = useState("")
+    const { id } = useParams()
 
     useEffect(() => {
 
         setError(null)
         setIsLoading(true)
 
+        if (!id || isNaN(Number(id))) {
+            setError("Invalid character ID");
+            setIsLoading(false);
+            return;
+        }
+        const validId = id;
+
         async function loadCharacter() {
             try {
-                const results = await getCharacters({ name: debouncedSearch, status, gender })
-                setCharacters(results)
+                const data = await getCharacter(validId)
+                setCharacter(data)
                 setIsLoading(false)
             } catch (error) {
-                setError('Failed to fetch characters')
+                setError("Failed to fetch character")
                 setIsLoading(false)
             }
         }
 
         loadCharacter()
-    }, [debouncedSearch, status, gender])
+    }, [id])
 
-    // EFECTO 2: Maneja el temporizador para retrasar la búsqueda (Antirrebote / Debounce)
-    useEffect(() => {
-        const id = setTimeout(() => setDebouncedSearch(search), 500)
-        return () => clearTimeout(id);
-    }, [search])
-
-    return {
-        characters,
-        isLoading,
-        error,
-        search,
-        setSearch,
-        status,
-        setStatus,
-        gender,
-        setGender
-    }
+    return { character, isLoading, error }
 }
