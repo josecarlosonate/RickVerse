@@ -24,3 +24,15 @@ export async function getCharacters(filters: CharacterFilters = {}) {
     const data = await response.json()
     return data.results
 }
+
+export async function getCharacter(id: string) {
+
+    const url = `${API_URL}/character/${id}`
+
+    const response = await fetch(url)
+    if (response.status === 404) { return null }
+    if (!response.ok) { throw new Error("Failed to fetch character") }
+
+    const data = await response.json()
+    return data
+}

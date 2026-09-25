@@ -4,6 +4,7 @@ export type character = {
     name: string;
     status: string;
     species: string;
+    type: string;
     gender: string;
     origin: {
         name: string;
@@ -13,4 +14,5 @@ export type character = {
         name: string;
     };
     episode: string[];
+    created: string;
 }
