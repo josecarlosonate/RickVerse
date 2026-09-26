@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import type { Character, GenderFilter, StatusFilter } from "../types/character";
+import type { Character } from "../types/character";
 import { getCharacters } from "../api/rickAndMorty";
-
 
 export function useCharacters() {
     const [characters, setCharacters] = useState<Character[]>([])
@@ -9,8 +8,8 @@ export function useCharacters() {
     const [error, setError] = useState<string | null>(null)
     const [search, setSearch] = useState<string>('')
     const [debouncedSearch, setDebouncedSearch] = useState('')
-    const [status, setStatus] = useState<StatusFilter>('all')
-    const [gender, setGender] = useState<GenderFilter>("")
+    const [status, setStatus] = useState('all')
+    const [gender, setGender] = useState("")
 
     useEffect(() => {
 

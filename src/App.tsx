@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Home from './pages/Home'
 import CharacterDetail from './pages/CharacterDetail'
+import { Toaster } from 'sonner'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/character/:id" element={<CharacterDetail />} />
       </Routes>
+      <Toaster />
     </>
   )
 }

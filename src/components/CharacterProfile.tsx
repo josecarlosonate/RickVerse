@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom"
 import type { Character } from "../types/character"
+import { useFavorites } from "../hooks/useFavorites"
 
 type CharacterProfileProps = {
     character: Character
 }
 
 function CharacterProfile(props: CharacterProfileProps) {
+    const { isFavorite, toggleFavorites } = useFavorites()
     const statusColors: Record<string, string> = {
         Alive: "bg-[#3fb950]",
         Dead: "bg-red-500",
@@ -19,16 +21,16 @@ function CharacterProfile(props: CharacterProfileProps) {
                     <Link to="/" className="mb-6 inline-block text-md text-[#8b949e] hover:text-[#3fb950]">
                         ← Back to characters
                     </Link>
-
                     <article
                         className="relative mx-auto max-w-2xl overflow-hidden rounded-xl border border-[#444c56] bg-[#1c2128]
                         shadow-[0_30px_70px_rgba(0,0,0,0.85)] md:flex md:flex-row transition-all duration-300 ease-out
                         hover:-translate-y-1.5 hover:scale-[1.03] hover:ring-1">
-                        <button
-                            title="Add to favorites"
-                            className="absolute top-4 right-4 z-10 rounded-full border border-[#30363d] bg-[#21262d]/80 p-2 
-                            text-[#8b949e] backdrop-blur-md transition-all duration-200 hover:scale-110 hover:border-[#e3b341]
-                            hover:text-[#e3b341] hover:bg-[#21262d] cursor-pointer">
+                        <button onClick={() => toggleFavorites(props.character.id)}
+                            title={isFavorite(props.character.id) ? "Remove from favorites" : "Add to favorites"}
+                            className={`absolute top-4 right-4 z-10 rounded-full border 
+                                ${isFavorite(props.character.id) ? "border-[#e3b341] text-[#e3b341]" : "border-[#30363d] text-[#8b949e]"}
+                                 bg-[#21262d]/80 p-2 backdrop-blur-md transition-all duration-200 hover:scale-110 
+                                 hover:border-[#e3b341] hover:text-[#e3b341] hover:bg-[#21262d] cursor-pointer`}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 
                                 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 
