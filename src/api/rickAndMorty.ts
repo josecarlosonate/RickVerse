@@ -1,4 +1,4 @@
-import type { Character, GenderFilter, StatusFilter } from "../types/character"
+import type { Character } from "../types/character"
 
 const API_URL = "https://rickandmortyapi.com/api";
 
@@ -8,8 +8,8 @@ type CharactersResponse = {
 
 type CharacterFilters = {
     name?: string
-    status?: StatusFilter
-    gender?: GenderFilter
+    status?: string
+    gender?: string
 }
 
 export async function getCharacters(filters: CharacterFilters = {}): Promise<Character[]> {

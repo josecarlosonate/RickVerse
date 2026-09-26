@@ -16,7 +16,3 @@ export type Character = {
     episode: string[];
     created: string;
 }
-
-export type StatusFilter = "alive" | "dead" | "unknown" | "all"
-
-export type GenderFilter = "female" | "male" | "genderless" | "unknown" | ""
