@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import type { character } from "../types/character";
+import type { Character, GenderFilter, StatusFilter } from "../types/character";
 import { getCharacters } from "../api/rickAndMorty";
 
 
 export function useCharacters() {
-    const [characters, setCharacters] = useState<character[]>([])
+    const [characters, setCharacters] = useState<Character[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
     const [search, setSearch] = useState<string>('')
     const [debouncedSearch, setDebouncedSearch] = useState('')
-    const [status, setStatus] = useState('all')
-    const [gender, setGender] = useState("")
+    const [status, setStatus] = useState<StatusFilter>('all')
+    const [gender, setGender] = useState<GenderFilter>("")
 
     useEffect(() => {
 
@@ -21,9 +21,9 @@ export function useCharacters() {
             try {
                 const results = await getCharacters({ name: debouncedSearch, status, gender })
                 setCharacters(results)
-                setIsLoading(false)
-            } catch (error) {
+            } catch {
                 setError('Failed to fetch characters')
+            } finally {
                 setIsLoading(false)
             }
         }

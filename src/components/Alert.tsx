@@ -1,9 +1,9 @@
-type alertProps = {
+type AlertProps = {
     type: 'error' | 'info',
     message: string
 }
 
-function Alert(props: alertProps) {
+function Alert(props: AlertProps) {
 
     const typeColor: Record<string, string> = {
         error: "text-red-400/90",

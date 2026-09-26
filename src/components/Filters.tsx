@@ -1,4 +1,4 @@
-type filtersProps = {
+type FiltersProps = {
     value: string,
     onChange: (value: string) => void
     statusValue: string,
@@ -7,7 +7,7 @@ type filtersProps = {
     onGenderChange: (value: string) => void
 }
 
-function Filters(props: filtersProps) {
+function Filters(props: FiltersProps) {
     return (
         <div className="w-full mx-auto max-w-lg mt-6 mb-2 flex flex-col gap-3">
             <input value={props.value} onChange={(e) => props.onChange(e.target.value)}

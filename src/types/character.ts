@@ -1,4 +1,4 @@
-export type character = {
+export type Character = {
     id: number;
     image: string;
     name: string;
@@ -16,3 +16,7 @@ export type character = {
     episode: string[];
     created: string;
 }
+
+export type StatusFilter = "alive" | "dead" | "unknown" | "all"
+
+export type GenderFilter = "female" | "male" | "genderless" | "unknown" | ""
