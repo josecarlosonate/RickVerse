@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
-import type { character } from "../types/character"
+import type { Character } from "../types/character"
 
-type CharacterCardProps = {
-    character: character
+type CharacterProfileProps = {
+    character: Character
 }
 
-function CharacterProfile(props: CharacterCardProps) {
+function CharacterProfile(props: CharacterProfileProps) {
     const statusColors: Record<string, string> = {
         Alive: "bg-[#3fb950]",
         Dead: "bg-red-500",

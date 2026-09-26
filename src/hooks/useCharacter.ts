@@ -1,33 +1,34 @@
 import { useEffect, useState } from "react";
-import type { character } from "../types/character";
+import type { Character } from "../types/character";
 import { useParams } from "react-router-dom";
 import { getCharacter } from "../api/rickAndMorty";
 
 export function useCharacter() {
-    const [character, setCharacter] = useState<character | null>(null)
+    const [character, setCharacter] = useState<Character | null>(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
     const { id } = useParams()
 
     useEffect(() => {
 
+        setCharacter(null)
         setError(null)
         setIsLoading(true)
 
-        if (!id || isNaN(Number(id))) {
-            setError("Invalid character ID");
-            setIsLoading(false);
-            return;
+        const characterId = Number(id)
+        if (!id || !Number.isInteger(characterId) || characterId <= 0) {
+            setError("Invalid character ID")
+            setIsLoading(false)
+            return
         }
-        const validId = id;
 
         async function loadCharacter() {
             try {
-                const data = await getCharacter(validId)
+                const data = await getCharacter(characterId)
                 setCharacter(data)
-                setIsLoading(false)
-            } catch (error) {
+            } catch {
                 setError("Failed to fetch character")
+            } finally {
                 setIsLoading(false)
             }
         }
