@@ -42,3 +42,17 @@ export async function getCharacter(id: number): Promise<Character | null> {
     const data: Character = await response.json()
     return data
 }
+
+export async function getCharactersByIds(ids: number[]): Promise<Character[]> {
+    if (!ids.length) { return [] }
+
+    const favoriteIds = ids.join(",")
+    const url = `${API_URL}/character/${favoriteIds}`
+
+    const response = await fetch(url)
+    if (response.status === 404) { return [] }
+    if (!response.ok) { throw new Error("Failed to fetch characters") }
+
+    const data = await response.json()
+    return Array.isArray(data) ? data : [data]
+}

@@ -21,7 +21,7 @@ export function useFavorites() {
         })
     }
 
-    return { isFavorite, toggleFavorites }
+    return { isFavorite, toggleFavorites, favoriteIds }
 }
 
 function getStoredFavorites() {

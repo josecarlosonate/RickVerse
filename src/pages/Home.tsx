@@ -6,14 +6,16 @@ import Alert from '../components/Alert'
 
 function Home() {
 
-    const { characters, isLoading, error, search, setSearch, status, setStatus, gender, setGender } = useCharacters()
+    const { characters, isLoading, error, search, setSearch,
+        status, setStatus, gender, setGender, showFavorites, toggleFavorites } = useCharacters()
 
     return (
         <>
             <Filters
                 value={search} onChange={setSearch}
                 statusValue={status} onStatusChange={setStatus}
-                genderValue={gender} onGenderChange={setGender} />
+                genderValue={gender} onGenderChange={setGender}
+                showFavorites={showFavorites} toggleFavorites={toggleFavorites} />
             {
                 error ? <Alert type='error' message={error} /> :
                     isLoading ? <CharacterSkeleton /> :
