@@ -21,10 +21,13 @@ export function useCharacters() {
 
         async function loadCharacter() {
             try {
+
                 const results = showFavorites
-                    ? await getCharactersByIds(favoriteIds)
+                    ? await getFilteredFavoriteCharacters(favoriteIds)
                     : await getCharacters({ name: debouncedSearch, status, gender })
+
                 setCharacters(results)
+
             } catch {
                 setError('Failed to fetch characters')
             } finally {
@@ -33,7 +36,7 @@ export function useCharacters() {
         }
 
         loadCharacter()
-    }, [debouncedSearch, status, gender, showFavorites, favoriteIds])
+    }, [debouncedSearch, status, gender, showFavorites])
 
     // EFECTO 2: Maneja el temporizador para retrasar la búsqueda (Antirrebote / Debounce)
     useEffect(() => {
@@ -44,6 +47,23 @@ export function useCharacters() {
     // ON - OFF de favoritos
     function toggleFavorites() {
         setShowFavorites(!showFavorites)
+    }
+
+    async function getFilteredFavoriteCharacters(favoriteIds: number[]): Promise<Character[]> {
+
+        let results = await getCharactersByIds(favoriteIds)
+
+        if (gender !== "") {
+            results = results.filter(character => character.gender.toLowerCase() === gender)
+        }
+        if (status !== "all") {
+            results = results.filter(character => character.status.toLowerCase() === status)
+        }
+        if (debouncedSearch !== "") {
+            results = results.filter(character => character.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
+        }
+
+        return results
     }
 
     return {
