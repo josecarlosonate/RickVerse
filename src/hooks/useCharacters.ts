@@ -16,6 +16,27 @@ export function useCharacters() {
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
 
+    async function getFilteredFavoriteCharacters(favoriteIds: number[]):
+        Promise<{ results: Character[], totalPages: number }> {
+
+        let results = await getCharactersByIds(favoriteIds)
+
+        if (gender !== "") {
+            results = results.filter(character => character.gender.toLowerCase() === gender)
+        }
+        if (status !== "all") {
+            results = results.filter(character => character.status.toLowerCase() === status)
+        }
+        if (debouncedSearch !== "") {
+            results = results.filter(character => character.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
+        }
+
+        return {
+            results,
+            totalPages: 1
+        }
+    }
+
     useEffect(() => {
 
         setError(null)
@@ -39,7 +60,7 @@ export function useCharacters() {
         }
 
         loadCharacter()
-    }, [debouncedSearch, status, gender, showFavorites, page])
+    }, [debouncedSearch, status, gender, showFavorites, page, favoriteIds])
 
     // EFECTO 2: Maneja el temporizador para retrasar la búsqueda (Antirrebote / Debounce)
     useEffect(() => {
@@ -50,26 +71,6 @@ export function useCharacters() {
     // ON - OFF de favoritos
     function toggleFavorites() {
         setShowFavorites(!showFavorites)
-    }
-
-    async function getFilteredFavoriteCharacters(favoriteIds: number[]): Promise<{ results: Character[], totalPages: number }> {
-
-        let results = await getCharactersByIds(favoriteIds)
-
-        if (gender !== "") {
-            results = results.filter(character => character.gender.toLowerCase() === gender)
-        }
-        if (status !== "all") {
-            results = results.filter(character => character.status.toLowerCase() === status)
-        }
-        if (debouncedSearch !== "") {
-            results = results.filter(character => character.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
-        }
-
-        return {
-            results,
-            totalPages: 1
-        }
     }
 
     return {

@@ -5,7 +5,7 @@ type FiltersProps = {
     onStatusChange: (value: string) => void
     genderValue: string,
     onGenderChange: (value: string) => void
-    showFavorites: Boolean
+    showFavorites: boolean
     toggleFavorites: () => void
 }
 
