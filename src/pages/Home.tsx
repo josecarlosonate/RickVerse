@@ -3,13 +3,11 @@ import CharacterCards from '../components/CharacterCards'
 import CharacterSkeleton from '../components/CharacterSkeleton'
 import Filters from '../components/Filters'
 import Alert from '../components/Alert'
-import Pagination from '../components/Pagination'
 
 function Home() {
 
     const { characters, isLoading, error, search, setSearch,
-        status, setStatus, gender, setGender, showFavorites, toggleFavorites,
-        page, totalPages, setPage } = useCharacters()
+        status, setStatus, gender, setGender, showFavorites, toggleFavorites } = useCharacters()
 
     return (
         <>
@@ -22,14 +20,7 @@ function Home() {
                 error ? <Alert type='error' message={error} /> :
                     isLoading ? <CharacterSkeleton /> :
                         characters.length === 0 ? <Alert type='info' message='No characters found' /> :
-                            <>
-                                <CharacterCards characters={characters} />
-                                <Pagination
-                                    currentPage={page}
-                                    totalPages={totalPages}
-                                    onPageChange={setPage}
-                                />
-                            </>
+                            <CharacterCards characters={characters} />
             }
         </>
     )
