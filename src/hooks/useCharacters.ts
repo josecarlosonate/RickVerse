@@ -26,7 +26,7 @@ export function useCharacters() {
 
                 const { results, totalPages } = showFavorites
                     ? await getFilteredFavoriteCharacters(favoriteIds)
-                    : await getCharacters({ name: debouncedSearch, status, gender })
+                    : await getCharacters({ name: debouncedSearch, status, gender, page })
 
                 setCharacters(results)
                 setTotalPages(totalPages)
@@ -85,6 +85,7 @@ export function useCharacters() {
         showFavorites,
         toggleFavorites,
         page,
+        setPage,
         totalPages
     }
 }
