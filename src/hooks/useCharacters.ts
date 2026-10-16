@@ -13,6 +13,8 @@ export function useCharacters() {
     const [gender, setGender] = useState("")
     const [showFavorites, setShowFavorites] = useState(false)
     const { favoriteIds } = useFavorites()
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
 
     useEffect(() => {
 
@@ -22,11 +24,12 @@ export function useCharacters() {
         async function loadCharacter() {
             try {
 
-                const results = showFavorites
+                const { results, totalPages } = showFavorites
                     ? await getFilteredFavoriteCharacters(favoriteIds)
-                    : await getCharacters({ name: debouncedSearch, status, gender })
+                    : await getCharacters({ name: debouncedSearch, status, gender, page })
 
                 setCharacters(results)
+                setTotalPages(totalPages)
 
             } catch {
                 setError('Failed to fetch characters')
@@ -36,7 +39,7 @@ export function useCharacters() {
         }
 
         loadCharacter()
-    }, [debouncedSearch, status, gender, showFavorites])
+    }, [debouncedSearch, status, gender, showFavorites, page])
 
     // EFECTO 2: Maneja el temporizador para retrasar la búsqueda (Antirrebote / Debounce)
     useEffect(() => {
@@ -49,7 +52,7 @@ export function useCharacters() {
         setShowFavorites(!showFavorites)
     }
 
-    async function getFilteredFavoriteCharacters(favoriteIds: number[]): Promise<Character[]> {
+    async function getFilteredFavoriteCharacters(favoriteIds: number[]): Promise<{ results: Character[], totalPages: number }> {
 
         let results = await getCharactersByIds(favoriteIds)
 
@@ -63,7 +66,10 @@ export function useCharacters() {
             results = results.filter(character => character.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
         }
 
-        return results
+        return {
+            results,
+            totalPages: 1
+        }
     }
 
     return {
@@ -77,6 +83,9 @@ export function useCharacters() {
         gender,
         setGender,
         showFavorites,
-        toggleFavorites
+        toggleFavorites,
+        page,
+        setPage,
+        totalPages
     }
 }
