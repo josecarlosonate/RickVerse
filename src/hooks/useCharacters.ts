@@ -3,6 +3,27 @@ import type { Character } from "../types/character";
 import { getCharacters, getCharactersByIds } from "../api/rickAndMorty";
 import { useFavorites } from "./useFavorites";
 
+async function getFilteredFavoriteCharacters(favoriteIds: number[], status: string, gender: string, debouncedSearch: string):
+    Promise<{ results: Character[], totalPages: number }> {
+
+    let results = await getCharactersByIds(favoriteIds)
+
+    if (gender !== "") {
+        results = results.filter(character => character.gender.toLowerCase() === gender)
+    }
+    if (status !== "all") {
+        results = results.filter(character => character.status.toLowerCase() === status)
+    }
+    if (debouncedSearch !== "") {
+        results = results.filter(character => character.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
+    }
+
+    return {
+        results,
+        totalPages: 1
+    }
+}
+
 export function useCharacters() {
     const [characters, setCharacters] = useState<Character[]>([])
     const [isLoading, setIsLoading] = useState(true)
@@ -16,37 +37,13 @@ export function useCharacters() {
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
 
-    async function getFilteredFavoriteCharacters(favoriteIds: number[]):
-        Promise<{ results: Character[], totalPages: number }> {
-
-        let results = await getCharactersByIds(favoriteIds)
-
-        if (gender !== "") {
-            results = results.filter(character => character.gender.toLowerCase() === gender)
-        }
-        if (status !== "all") {
-            results = results.filter(character => character.status.toLowerCase() === status)
-        }
-        if (debouncedSearch !== "") {
-            results = results.filter(character => character.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
-        }
-
-        return {
-            results,
-            totalPages: 1
-        }
-    }
-
     useEffect(() => {
-
-        setError(null)
-        setIsLoading(true)
 
         async function loadCharacter() {
             try {
 
                 const { results, totalPages } = showFavorites
-                    ? await getFilteredFavoriteCharacters(favoriteIds)
+                    ? await getFilteredFavoriteCharacters(favoriteIds, status, gender, debouncedSearch)
                     : await getCharacters({ name: debouncedSearch, status, gender, page })
 
                 setCharacters(results)

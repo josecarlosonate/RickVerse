@@ -11,10 +11,6 @@ export function useCharacter() {
 
     useEffect(() => {
 
-        setCharacter(null)
-        setError(null)
-        setIsLoading(true)
-
         const characterId = Number(id)
         if (!id || !Number.isInteger(characterId) || characterId <= 0) {
             setError("Invalid character ID")
