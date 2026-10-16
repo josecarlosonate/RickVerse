@@ -15,13 +15,13 @@ function CharacterCards(props: CharacterCardsProps) {
     return (
         <>
             <section className="py-10 px-4 sm:px-6">
-                <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4">
+                <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {props.characters.map((character) => (
                         <Link key={character.id} to={`/character/${character.id}`}>
                             <div
-                                className="flex flex-col sm:flex-row sm:h-32 w-full max-w-md mx-auto overflow-hidden rounded-xl border 
+                                className="flex flex-col sm:flex-row sm:h-32 w-full overflow-hidden rounded-xl border 
                                 border-[#30363d] bg-[#161b22] transition duration-200 hover:ring-1 hover:-translate-y-1.5">
-                                <div className="w-full aspect-4/3 sm:aspect-auto h-36 sm:h-48 sm:w-28 shrink-0 bg-[#21262d]">
+                                <div className="w-full h-40 sm:w-28 sm:h-full shrink-0 bg-[#21262d]">
                                     <img className="h-full w-full object-cover" src={character.image} alt={character.name} />
                                 </div>
                                 <div className="flex flex-1 flex-col justify-between p-3 text-left">
