@@ -12,7 +12,14 @@ export function useCharacters() {
     const [status, setStatus] = useState('all')
     const [gender, setGender] = useState("")
     const [showFavorites, setShowFavorites] = useState(false)
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
     const { favoriteIds } = useFavorites()
+
+    // Reset page when filters change
+    useEffect(() => {
+        setPage(1)
+    }, [debouncedSearch, status, gender, showFavorites])
 
     useEffect(() => {
 
@@ -22,11 +29,20 @@ export function useCharacters() {
         async function loadCharacter() {
             try {
 
-                const results = showFavorites
-                    ? await getFilteredFavoriteCharacters(favoriteIds)
-                    : await getCharacters({ name: debouncedSearch, status, gender })
-
-                setCharacters(results)
+                if (showFavorites) {
+                    const results = await getFilteredFavoriteCharacters(favoriteIds)
+                    setCharacters(results)
+                    setTotalPages(1)
+                } else {
+                    const { results, totalPages: pages } = await getCharacters({
+                        name: debouncedSearch,
+                        status,
+                        gender,
+                        page
+                    })
+                    setCharacters(results)
+                    setTotalPages(pages)
+                }
 
             } catch {
                 setError('Failed to fetch characters')
@@ -36,7 +52,7 @@ export function useCharacters() {
         }
 
         loadCharacter()
-    }, [debouncedSearch, status, gender, showFavorites])
+    }, [debouncedSearch, status, gender, showFavorites, page, favoriteIds])
 
     // EFECTO 2: Maneja el temporizador para retrasar la búsqueda (Antirrebote / Debounce)
     useEffect(() => {
@@ -77,6 +93,9 @@ export function useCharacters() {
         gender,
         setGender,
         showFavorites,
-        toggleFavorites
+        toggleFavorites,
+        page,
+        totalPages,
+        setPage
     }
 }
