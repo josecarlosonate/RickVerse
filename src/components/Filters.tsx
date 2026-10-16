@@ -11,7 +11,7 @@ type FiltersProps = {
 
 function Filters(props: FiltersProps) {
     return (
-        <div className="w-full mx-auto max-w-lg mt-6 mb-2 flex flex-col gap-3">
+        <div className="w-full mx-auto max-w-lg mt-6 mb-2 flex flex-col gap-3 px-4 sm:px-6">
             <div className="flex items-center gap-2 w-full">
                 <input value={props.value} onChange={(e) => props.onChange(e.target.value)}
                     placeholder="Search characters..."

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 function Header() {
     return (
-        <header className="flex h-20 items-center justify-between border-b border-[#21262d]">
+        <header className="flex h-20 items-center justify-between border-b border-[#21262d] px-4 sm:px-6">
             <Link to="/" className="flex items-center gap-3 text-lg font-semibold text-[#e6edf3]">
                 <span className="grid h-9 w-9 place-items-center rounded-lg border border-[#30363d] bg-[#161b22] font-bold text-[#3fb950]">
                     RM
