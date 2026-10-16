@@ -8,15 +8,12 @@ export function useCharacter() {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
     const { id } = useParams()
+    const characterId = Number(id);
+    const isValidId = !!id && Number.isInteger(characterId) && characterId > 0;
 
     useEffect(() => {
 
-        const characterId = Number(id)
-        if (!id || !Number.isInteger(characterId) || characterId <= 0) {
-            setError("Invalid character ID")
-            setIsLoading(false)
-            return
-        }
+        if (!isValidId) return;
 
         async function loadCharacter() {
             try {
@@ -30,7 +27,7 @@ export function useCharacter() {
         }
 
         loadCharacter()
-    }, [id])
+    }, [characterId, isValidId])
 
     return { character, isLoading, error }
 }
