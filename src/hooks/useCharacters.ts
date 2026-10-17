@@ -39,6 +39,9 @@ export function useCharacters() {
 
     useEffect(() => {
 
+        setError(null)
+        setIsLoading(true)
+
         async function loadCharacter() {
             try {
 
