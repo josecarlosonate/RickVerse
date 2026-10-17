@@ -8,6 +8,8 @@
 Aplicación web para explorar personajes del universo de **Rick and Morty**,
 construida con **React**, **TypeScript** y **Tailwind CSS**.
 
+**[Ver demo en vivo](https://rickverse.josecarlosonate.com/)**
+
 RickVerse consume **The Rick and Morty API** para permitir la búsqueda y
 exploración de personajes, aplicar filtros por estado y género, consultar
 información detallada y administrar una lista de favoritos persistente
@@ -19,6 +21,7 @@ en el navegador.
 
 ## Contenido
 
+- [Demo en vivo](#demo-en-vivo)
 - [Sobre el proyecto](#sobre-el-proyecto)
 - [Capturas de pantalla](#capturas-de-pantalla)
 - [Funcionalidades](#funcionalidades)
@@ -27,6 +30,14 @@ en el navegador.
 - [API](#api)
 - [Cómo ejecutar el proyecto](#cómo-ejecutar-el-proyecto)
 - [Autor](#autor)
+
+---
+
+## Demo en vivo
+
+La aplicación está desplegada en Vercel y disponible en:
+
+**https://rickverse.josecarlosonate.com/**
 
 ---
 
