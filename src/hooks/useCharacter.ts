@@ -15,6 +15,10 @@ export function useCharacter() {
 
         if (!isValidId) return;
 
+        setCharacter(null)
+        setError(null)
+        setIsLoading(true)
+
         async function loadCharacter() {
             try {
                 const data = await getCharacter(characterId)
